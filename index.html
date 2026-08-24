@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Little's Circle | Membership Registration</title>
+  <meta name="description" content="Register for Little's Circle membership at Little's Bakes | Bistro." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#top" aria-label="Little's Bakes and Bistro">
+          <img src="littles-logo.png" alt="Little's Bakes | Bistro logo">
+        </a>
+        <div class="header-note">
+          <span>More Love.</span>
+          <span>More Treats.</span>
+          <span>More Rewards. ♡</span>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">WELCOME TO LITTLE'S CIRCLE</p>
+          <h1>Your sweetest moments<br><span>deserve a little more.</span></h1>
+          <p class="hero-text">
+            Choose your membership and register in just a few simple steps.
+            Your Little's Circle journey starts here.
+          </p>
+          <div class="hero-badges">
+            <div class="badge"><strong>5</strong><small>Membership Plans</small></div>
+            <div class="badge"><strong>1</strong><small>Simple Registration</small></div>
+            <div class="badge"><strong>♡</strong><small>More Rewards</small></div>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="arch">
+            <div class="coffee-ring"></div>
+            <div class="floating-card card-a">BAKED<br><span>with love</span></div>
+            <div class="floating-card card-b">GOOD FOOD<br><span>GOOD MOOD</span></div>
+            <div class="cake-illustration">
+              <div class="cake-top"></div>
+              <div class="cake-layer one"></div>
+              <div class="cake-layer two"></div>
+              <div class="cake-layer three"></div>
+              <div class="cherry c1"></div>
+              <div class="cherry c2"></div>
+            </div>
+            <div class="leaf leaf-1"></div>
+            <div class="leaf leaf-2"></div>
+            <div class="leaf leaf-3"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="membership-section" id="plans">
+        <div class="section-heading">
+          <p class="eyebrow">CHOOSE YOUR MEMBERSHIP</p>
+          <h2>Find your place in <span>Little's Circle</span></h2>
+          <p>Select one plan below. The form will automatically adapt for your membership type.</p>
+        </div>
+
+        <div class="plan-grid">
+          <button class="plan-card starter active" type="button" data-plan="Starter" data-price="FREE">
+            <div class="plan-top">
+              <span class="plan-tag">START HERE</span>
+              <span class="plan-icon">♡</span>
+            </div>
+            <div class="plan-name">Little's Starter</div>
+            <div class="plan-price">FREE</div>
+            <div class="plan-caption">Perfect for discovering Little's Circle.</div>
+            <span class="select-plan">Select Plan</span>
+          </button>
+
+          <button class="plan-card lover" type="button" data-plan="Lover" data-price="₹1,199 / Year">
+            <div class="plan-top">
+              <span class="plan-tag">MOST LOVED</span>
+              <span class="plan-icon">♥</span>
+            </div>
+            <div class="plan-name">Little's Lover</div>
+            <div class="plan-price">₹1,199 <small>/ year</small></div>
+            <div class="plan-caption">For regular Little's lovers.</div>
+            <span class="select-plan">Select Plan</span>
+          </button>
+
+          <button class="plan-card elite" type="button" data-plan="Elite" data-price="₹2,499 / Year">
+            <div class="plan-top">
+              <span class="plan-tag">PREMIUM</span>
+              <span class="plan-icon">♛</span>
+            </div>
+            <div class="plan-name">Little's Elite</div>
+            <div class="plan-price">₹2,499 <small>/ year</small></div>
+            <div class="plan-caption">A premium experience for those who love the best.</div>
+            <span class="select-plan">Select Plan</span>
+          </button>
+
+          <button class="plan-card family" type="button" data-plan="Family Circle" data-price="₹3,599 / Year">
+            <div class="plan-top">
+              <span class="plan-tag">FOR 4 MEMBERS</span>
+              <span class="plan-icon">♧</span>
+            </div>
+            <div class="plan-name">Little's Family Circle</div>
+            <div class="plan-price">₹3,599 <small>/ year</small></div>
+            <div class="plan-caption">One membership, four family members.</div>
+            <span class="select-plan">Select Plan</span>
+          </button>
+
+          <button class="plan-card corporate" type="button" data-plan="Corporate Club" data-price="₹4,999 / Year">
+            <div class="plan-top">
+              <span class="plan-tag">FOR BUSINESS</span>
+              <span class="plan-icon">▣</span>
+            </div>
+            <div class="plan-name">Little's Corporate Club</div>
+            <div class="plan-price">₹4,999 <small>/ year</small></div>
+            <div class="plan-caption">Built for teams, gifting and celebrations.</div>
+            <span class="select-plan">Select Plan</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="form-section" id="register">
+        <div class="form-wrap">
+          <div class="form-side">
+            <p class="eyebrow">MEMBERSHIP REGISTRATION</p>
+            <h2>Let's make it <span>official.</span></h2>
+            <p>
+              Fill in your details below and we'll use the information to process
+              your Little's Circle membership registration.
+            </p>
+
+            <div class="selected-plan-preview">
+              <div>
+                <small>SELECTED PLAN</small>
+                <strong id="selectedPlanText">Little's Starter</strong>
+              </div>
+              <div class="selected-price" id="selectedPriceText">FREE</div>
+            </div>
+
+            <div class="mini-note">
+              <span class="note-icon">✦</span>
+              <div>
+                <strong>Little's Circle</strong>
+                <p>More Love. More Treats. More Rewards.</p>
+              </div>
+            </div>
+          </div>
+
+          <form class="membership-form" id="membershipForm">
+            <input type="hidden" id="planInput" name="membership_plan" value="Starter" />
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="fullName">Full Name <span>*</span></label>
+                <input id="fullName" name="full_name" type="text" placeholder="Enter your full name" required>
+              </div>
+
+              <div class="field">
+                <label for="mobile">Mobile Number <span>*</span></label>
+                <input id="mobile" name="mobile" type="tel" placeholder="Enter mobile number" required>
+              </div>
+
+              <div class="field">
+                <label for="whatsapp">WhatsApp Number</label>
+                <input id="whatsapp" name="whatsapp" type="tel" placeholder="Same as mobile, if applicable">
+              </div>
+
+              <div class="field">
+                <label for="email">Email Address</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com">
+              </div>
+
+              <div class="field">
+                <label for="dob">Date of Birth</label>
+                <input id="dob" name="dob" type="date">
+              </div>
+
+              <div class="field">
+                <label for="anniversary">Anniversary Date</label>
+                <input id="anniversary" name="anniversary" type="date">
+              </div>
+
+              <div class="field full">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" rows="3" placeholder="Enter your address"></textarea>
+              </div>
+
+              <div class="field">
+                <label for="city">City</label>
+                <input id="city" name="city" type="text" placeholder="Your city">
+              </div>
+
+              <div class="field">
+                <label for="referral">Referral Code</label>
+                <input id="referral" name="referral_code" type="text" placeholder="Optional">
+              </div>
+            </div>
+
+            <div class="conditional-block" id="familyBlock" hidden>
+              <div class="conditional-title">
+                <span class="step-number">01</span>
+                <div>
+                  <strong>Family Member Details</strong>
+                  <p>Little's Family Circle is designed for a total of 4 family members.</p>
+                </div>
+              </div>
+
+              <div class="member-grid">
+                <div class="field">
+                  <label for="family2">Family Member 2</label>
+                  <input id="family2" name="family_member_2" type="text" placeholder="Full name">
+                </div>
+                <div class="field">
+                  <label for="family2dob">Date of Birth</label>
+                  <input id="family2dob" name="family_member_2_dob" type="date">
+                </div>
+                <div class="field">
+                  <label for="family3">Family Member 3</label>
+                  <input id="family3" name="family_member_3" type="text" placeholder="Full name">
+                </div>
+                <div class="field">
+                  <label for="family3dob">Date of Birth</label>
+                  <input id="family3dob" name="family_member_3_dob" type="date">
+                </div>
+                <div class="field">
+                  <label for="family4">Family Member 4</label>
+                  <input id="family4" name="family_member_4" type="text" placeholder="Full name">
+                </div>
+                <div class="field">
+                  <label for="family4dob">Date of Birth</label>
+                  <input id="family4dob" name="family_member_4_dob" type="date">
+                </div>
+              </div>
+            </div>
+
+            <div class="conditional-block" id="corporateBlock" hidden>
+              <div class="conditional-title">
+                <span class="step-number">01</span>
+                <div>
+                  <strong>Business Details</strong>
+                  <p>Tell us a little about your organization.</p>
+                </div>
+              </div>
+
+              <div class="member-grid">
+                <div class="field">
+                  <label for="company">Company Name <span>*</span></label>
+                  <input id="company" name="company_name" type="text" placeholder="Company / organization name">
+                </div>
+                <div class="field">
+                  <label for="designation">Designation</label>
+                  <input id="designation" name="designation" type="text" placeholder="Your designation">
+                </div>
+                <div class="field">
+                  <label for="gst">GST Number</label>
+                  <input id="gst" name="gst_number" type="text" placeholder="Optional">
+                </div>
+                <div class="field">
+                  <label for="employees">Number of Employees</label>
+                  <input id="employees" name="employee_count" type="number" min="1" placeholder="e.g. 25">
+                </div>
+                <div class="field full">
+                  <label for="requirements">Requirements / Notes</label>
+                  <textarea id="requirements" name="business_requirements" rows="3" placeholder="Tell us about gifting, events, bulk orders, etc."></textarea>
+                </div>
+              </div>
+            </div>
+
+            <label class="consent">
+              <input type="checkbox" required>
+              <span>I agree to the membership registration details being used by Little's Bakes | Bistro for processing my membership.</span>
+            </label>
+
+            <button class="submit-btn" type="submit">
+              <span>Submit Registration</span>
+              <span aria-hidden="true">→</span>
+            </button>
+
+            <p class="form-footnote">By submitting, your registration request will be sent to Little's Bakes | Bistro for processing.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>
+          <img src="littles-logo.png" alt="Little's Bakes | Bistro logo">
+          <p>More Love. More Treats. More Rewards.</p>
+        </div>
+        <div class="footer-contact">
+          <span>House No. 161, Old A G Colony, Kadru, Ashok Nagar, Ranchi – 834002</span>
+          <span>08877871234&nbsp;&nbsp;|&nbsp;&nbsp;08092921884</span>
+          <span>@littlesbistroranchi</span>
+        </div>
+      </div>
+      <div class="footer-bottom">© Little's Bakes | Bistro — Little's Circle Membership Registration</div>
+    </footer>
+  </div>
+
+  <div class="success-modal" id="successModal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-icon">♡</div>
+      <p class="eyebrow" id="modalEyebrow">REGISTRATION RECEIVED</p>
+      <h3 id="modalTitle">Welcome to <span>Little's Circle</span></h3>
+      <p id="modalMessage">Your membership details have been submitted successfully.</p>
+
+      <div class="payment-panel" id="paymentPanel">
+        <img id="paymentQr" class="payment-qr" alt="Payment QR code">
+        <p class="payment-amount" id="paymentAmount"></p>
+        <p class="payment-hint">Please complete the payment for your selected plan.</p>
+      </div>
+
+      <div class="upload-field" id="uploadField">
+        <label for="paymentScreenshot">Payment Screenshot <span>*</span></label>
+        <input id="paymentScreenshot" type="file" accept="image/png,image/jpeg,image/webp" required>
+        <small>Accepted: PNG, JPG or WEBP. Maximum 5 MB.</small>
+      </div>
+
+      <p class="modal-error" id="modalError" role="alert"></p>
+      <button type="button" id="closeModal" class="modal-btn">Done</button>
+      <button type="button" id="cancelModal" class="modal-link">Cancel</button>
+    </div>
+  </div>
+  <div class="registration-toast" id="registrationToast" role="status" aria-live="polite">
+    <span class="toast-check">✓</span>
+    <span>Registration successfully submitted</span>
+  </div>
+
+  <script>
+    // Add the deployed Google Apps Script web-app URL here to save registrations to Google Sheets.
+    const GOOGLE_APPS_SCRIPT_URL = '';
+    const planCards = document.querySelectorAll('.plan-card');
+    const planInput = document.getElementById('planInput');
+    const selectedPlanText = document.getElementById('selectedPlanText');
+    const selectedPriceText = document.getElementById('selectedPriceText');
+    const familyBlock = document.getElementById('familyBlock');
+    const corporateBlock = document.getElementById('corporateBlock');
+    const companyInput = document.getElementById('company');
+    const form = document.getElementById('membershipForm');
+    const successModal = document.getElementById('successModal');
+    const closeModal = document.getElementById('closeModal');
+    const cancelModal = document.getElementById('cancelModal');
+    const paymentQr = document.getElementById('paymentQr');
+    const paymentAmount = document.getElementById('paymentAmount');
+    const paymentScreenshot = document.getElementById('paymentScreenshot');
+    const modalError = document.getElementById('modalError');
+    const uploadField = document.getElementById('uploadField');
+    const paymentPanel = document.getElementById('paymentPanel');
+    const modalEyebrow = document.getElementById('modalEyebrow');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const registrationToast = document.getElementById('registrationToast');
+
+    let submittedRecord = null;
+
+    function setPlan(card) {
+      planCards.forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+
+      const plan = card.dataset.plan;
+      const price = card.dataset.price;
+
+      planInput.value = plan;
+      selectedPlanText.textContent = "Little's " + plan;
+      selectedPriceText.textContent = price;
+
+      familyBlock.hidden = plan !== 'Family Circle';
+      corporateBlock.hidden = plan !== 'Corporate Club';
+      companyInput.required = plan === 'Corporate Club';
+
+      document.getElementById('register').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    planCards.forEach(card => card.addEventListener('click', () => setPlan(card)));
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      submittedRecord = Object.fromEntries(new FormData(form).entries());
+      const selectedCard = document.querySelector('.plan-card.active');
+      const price = selectedCard.dataset.price;
+      const isFree = price === 'FREE';
+
+      resetModalState();
+      paymentPanel.hidden = isFree;
+      uploadField.hidden = isFree;
+      paymentScreenshot.required = !isFree;
+      if (!isFree) {
+        paymentQr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=' + encodeURIComponent('Little\'s Bakes Bistro | ' + price);
+        paymentAmount.textContent = selectedPlanText.textContent + ' · ' + price;
+      } else {
+        saveRegistration();
+      }
+      modalError.textContent = '';
+      successModal.setAttribute('aria-hidden', 'false');
+      successModal.classList.add('show');
+    });
+
+    function hideModal() {
+      successModal.classList.remove('show');
+      successModal.setAttribute('aria-hidden', 'true');
+      paymentScreenshot.value = '';
+      modalError.textContent = '';
+    }
+
+    closeModal.addEventListener('click', async () => {
+      if (!submittedRecord) return;
+      if (paymentScreenshot.files[0] && paymentScreenshot.files[0].size > 5 * 1024 * 1024) {
+        modalError.textContent = 'Please choose an image smaller than 5 MB.';
+        return;
+      }
+      if (paymentScreenshot.required && !paymentScreenshot.files.length) {
+        modalError.textContent = 'Please upload your payment screenshot before continuing.';
+        return;
+      }
+
+      if (paymentScreenshot.required) {
+        submittedRecord.payment_screenshot = paymentScreenshot.files[0].name;
+        submittedRecord.payment_screenshot_data = await readFileAsDataUrl(paymentScreenshot.files[0]);
+        await saveRegistration();
+        showWelcomeState();
+        showRegistrationToast();
+        return;
+      }
+      hideModal();
+      form.reset();
+      setPlan(document.querySelector('.plan-card.starter'));
+    });
+    cancelModal.addEventListener('click', hideModal);
+    successModal.addEventListener('click', (e) => {
+      if (e.target === successModal) hideModal();
+    });
+
+    async function saveRegistration() {
+      const record = { ...submittedRecord, submitted_at: new Date().toISOString() };
+      if (GOOGLE_APPS_SCRIPT_URL) {
+        await fetch(GOOGLE_APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(record)
+        });
+      } else {
+        const pending = JSON.parse(localStorage.getItem('littlesCirclePendingRegistrations') || '[]');
+        pending.push(record);
+        localStorage.setItem('littlesCirclePendingRegistrations', JSON.stringify(pending));
+      }
+    }
+
+    function readFileAsDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function showWelcomeState() {
+      modalEyebrow.textContent = 'REGISTRATION SUCCESSFUL';
+      modalTitle.innerHTML = "Welcome to <span>Little's Circle</span>";
+      modalMessage.textContent = 'Your payment screenshot and membership details have been received successfully.';
+      paymentPanel.hidden = true;
+      uploadField.hidden = true;
+      paymentScreenshot.required = false;
+      closeModal.textContent = 'Done';
+    }
+
+    function resetModalState() {
+      modalEyebrow.textContent = 'REGISTRATION RECEIVED';
+      modalTitle.innerHTML = "Welcome to <span>Little's Circle</span>";
+      modalMessage.textContent = 'Your membership details have been submitted successfully.';
+      closeModal.textContent = 'Done';
+    }
+
+    function showRegistrationToast() {
+      registrationToast.classList.add('show');
+      window.setTimeout(() => registrationToast.classList.remove('show'), 4200);
+    }
+  </script>
+</body>
+</html>
