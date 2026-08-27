@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:," />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -169,6 +170,10 @@
               <div class="field">
                 <label for="whatsapp">WhatsApp Number</label>
                 <input id="whatsapp" name="whatsapp" type="tel" placeholder="Same as mobile, if applicable">
+                <label class="same-number">
+                  <input id="whatsappSameAsMobile" type="checkbox">
+                  <span>WhatsApp number is the same as mobile number</span>
+                </label>
               </div>
 
               <div class="field">
@@ -183,7 +188,7 @@
 
               <div class="field">
                 <label for="anniversary">Anniversary Date</label>
-                <input id="anniversary" name="anniversary" type="date">
+                <input id="anniversary" name="anniversary" type="text" placeholder="DD/MM" inputmode="numeric" maxlength="5" pattern="(?:0[1-9]|[12][0-9]|3[01])/(?:0[1-9]|1[0-2])">
               </div>
 
               <div class="field full">
@@ -334,8 +339,10 @@
   </div>
 
   <script>
-    // Add the deployed Google Apps Script web-app URL here to save registrations to Google Sheets.
-    const GOOGLE_APPS_SCRIPT_URL = '';
+    // Paste the deployed Google Apps Script web-app URL here.
+    const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwrXa-TxYWyrv3Rj7X6UoUFCu5j4YSBRx527bmXtj6AFTPMp1zfyhsclMJirUcCSk79MQ/exec';
+    const UPI_ID = 'vyapar.175693040047@hdfcbank';
+    const BUSINESS_NAME = "Little's Bakes & Bistro";
     const planCards = document.querySelectorAll('.plan-card');
     const planInput = document.getElementById('planInput');
     const selectedPlanText = document.getElementById('selectedPlanText');
@@ -343,6 +350,9 @@
     const familyBlock = document.getElementById('familyBlock');
     const corporateBlock = document.getElementById('corporateBlock');
     const companyInput = document.getElementById('company');
+    const mobileInput = document.getElementById('mobile');
+    const whatsappInput = document.getElementById('whatsapp');
+    const whatsappSameAsMobile = document.getElementById('whatsappSameAsMobile');
     const form = document.getElementById('membershipForm');
     const successModal = document.getElementById('successModal');
     const closeModal = document.getElementById('closeModal');
@@ -359,6 +369,16 @@
     const registrationToast = document.getElementById('registrationToast');
 
     let submittedRecord = null;
+
+    function syncWhatsAppNumber() {
+      if (whatsappSameAsMobile.checked) whatsappInput.value = mobileInput.value;
+    }
+
+    whatsappSameAsMobile.addEventListener('change', () => {
+      whatsappInput.readOnly = whatsappSameAsMobile.checked;
+      syncWhatsAppNumber();
+    });
+    mobileInput.addEventListener('input', syncWhatsAppNumber);
 
     function setPlan(card) {
       planCards.forEach(c => c.classList.remove('active'));
@@ -380,8 +400,9 @@
 
     planCards.forEach(card => card.addEventListener('click', () => setPlan(card)));
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!validateRegistration()) return;
       submittedRecord = Object.fromEntries(new FormData(form).entries());
       const selectedCard = document.querySelector('.plan-card.active');
       const price = selectedCard.dataset.price;
@@ -392,15 +413,81 @@
       uploadField.hidden = isFree;
       paymentScreenshot.required = !isFree;
       if (!isFree) {
-        paymentQr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=' + encodeURIComponent('Little\'s Bakes Bistro | ' + price);
+        const upiUrl = 'upi://pay?pa=' + encodeURIComponent(UPI_ID) +
+          '&pn=' + encodeURIComponent(BUSINESS_NAME) +
+          '&am=' + encodeURIComponent(price.replace(/[^\d.]/g, '')) +
+          '&cu=INR';
+        paymentQr.src = 'https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=' + encodeURIComponent(upiUrl);
         paymentAmount.textContent = selectedPlanText.textContent + ' · ' + price;
       } else {
-        saveRegistration();
+        try {
+          await saveRegistration();
+        } catch (error) {
+          modalError.textContent = error.message;
+          successModal.setAttribute('aria-hidden', 'false');
+          successModal.classList.add('show');
+          return;
+        }
       }
       modalError.textContent = '';
       successModal.setAttribute('aria-hidden', 'false');
       successModal.classList.add('show');
     });
+
+    function validateRegistration() {
+      form.querySelectorAll('input, textarea').forEach(field => field.setCustomValidity(''));
+
+      const phonePattern = /^[6-9]\d{9}$/;
+      const mobileValue = normalizePhoneNumber(document.getElementById('mobile').value);
+      const whatsappField = document.getElementById('whatsapp');
+      const whatsappValue = normalizePhoneNumber(whatsappField.value);
+      const mobileField = document.getElementById('mobile');
+
+      if (!phonePattern.test(mobileValue)) {
+        mobileField.setCustomValidity('Enter a valid 10-digit Indian mobile number.');
+      }
+      if (whatsappValue && !phonePattern.test(whatsappValue)) {
+        whatsappField.setCustomValidity('Enter a valid 10-digit Indian WhatsApp number.');
+      }
+
+      const anniversaryField = document.getElementById('anniversary');
+      const anniversaryMatch = anniversaryField.value.match(/^(\d{2})\/(\d{2})$/);
+      if (anniversaryField.value && (!anniversaryMatch || !isValidMonthDay(anniversaryMatch[1], anniversaryMatch[2]))) {
+        anniversaryField.setCustomValidity('Enter a valid anniversary date as DD/MM, without the year.');
+      }
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      ['dob', 'anniversary', 'family2dob', 'family3dob', 'family4dob'].forEach(id => {
+        const field = document.getElementById(id);
+        if (field.value && new Date(field.value + 'T00:00:00') > today) {
+          field.setCustomValidity('Date cannot be in the future.');
+        }
+      });
+
+      if (planInput.value === 'Family Circle') {
+        ['family2', 'family3', 'family4'].forEach(id => {
+          const field = document.getElementById(id);
+          if (!field.value.trim()) field.setCustomValidity('Enter all four family member names.');
+        });
+      }
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return false;
+      }
+      return true;
+    }
+
+    function normalizePhoneNumber(value) {
+      const digits = value.replace(/\D/g, '');
+      return digits.startsWith('91') && digits.length === 12 ? digits.slice(2) : digits;
+    }
+
+    function isValidMonthDay(day, month) {
+      const daysInMonth = new Date(2000, Number(month), 0).getDate();
+      return Number(day) >= 1 && Number(day) <= daysInMonth;
+    }
 
     function hideModal() {
       successModal.classList.remove('show');
@@ -419,11 +506,20 @@
         modalError.textContent = 'Please upload your payment screenshot before continuing.';
         return;
       }
+      if (paymentScreenshot.required && !/^image\/(png|jpeg|webp)$/.test(paymentScreenshot.files[0].type)) {
+        modalError.textContent = 'Please upload a PNG, JPG or WEBP image.';
+        return;
+      }
 
       if (paymentScreenshot.required) {
         submittedRecord.payment_screenshot = paymentScreenshot.files[0].name;
         submittedRecord.payment_screenshot_data = await readFileAsDataUrl(paymentScreenshot.files[0]);
-        await saveRegistration();
+        try {
+          await saveRegistration();
+        } catch (error) {
+          modalError.textContent = error.message;
+          return;
+        }
         showWelcomeState();
         showRegistrationToast();
         return;
@@ -439,7 +535,7 @@
 
     async function saveRegistration() {
       const record = { ...submittedRecord, submitted_at: new Date().toISOString() };
-      if (GOOGLE_APPS_SCRIPT_URL) {
+      if (GOOGLE_APPS_SCRIPT_URL && !GOOGLE_APPS_SCRIPT_URL.startsWith('PASTE_')) {
         await fetch(GOOGLE_APPS_SCRIPT_URL, {
           method: 'POST',
           mode: 'no-cors',
@@ -447,9 +543,7 @@
           body: JSON.stringify(record)
         });
       } else {
-        const pending = JSON.parse(localStorage.getItem('littlesCirclePendingRegistrations') || '[]');
-        pending.push(record);
-        localStorage.setItem('littlesCirclePendingRegistrations', JSON.stringify(pending));
+        throw new Error('Registration is not connected to Google Drive yet. Please configure the Apps Script web-app URL.');
       }
     }
 
