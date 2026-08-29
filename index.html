@@ -330,7 +330,6 @@
 
       <p class="modal-error" id="modalError" role="alert"></p>
       <button type="button" id="closeModal" class="modal-btn">Done</button>
-      <button type="button" id="cancelModal" class="modal-link">Cancel</button>
     </div>
   </div>
   <div class="registration-toast" id="registrationToast" role="status" aria-live="polite">
@@ -356,7 +355,6 @@
     const form = document.getElementById('membershipForm');
     const successModal = document.getElementById('successModal');
     const closeModal = document.getElementById('closeModal');
-    const cancelModal = document.getElementById('cancelModal');
     const paymentQr = document.getElementById('paymentQr');
     const paymentAmount = document.getElementById('paymentAmount');
     const paymentScreenshot = document.getElementById('paymentScreenshot');
@@ -512,12 +510,14 @@
       }
 
       if (paymentScreenshot.required) {
-        submittedRecord.payment_screenshot = paymentScreenshot.files[0].name;
-        submittedRecord.payment_screenshot_data = await readFileAsDataUrl(paymentScreenshot.files[0]);
+        setUploadingState(true);
         try {
+          submittedRecord.payment_screenshot = paymentScreenshot.files[0].name;
+          submittedRecord.payment_screenshot_data = await readFileAsDataUrl(paymentScreenshot.files[0]);
           await saveRegistration();
         } catch (error) {
           modalError.textContent = error.message;
+          setUploadingState(false);
           return;
         }
         showWelcomeState();
@@ -528,7 +528,6 @@
       form.reset();
       setPlan(document.querySelector('.plan-card.starter'));
     });
-    cancelModal.addEventListener('click', hideModal);
     successModal.addEventListener('click', (e) => {
       if (e.target === successModal) hideModal();
     });
@@ -564,6 +563,7 @@
       uploadField.hidden = true;
       paymentScreenshot.required = false;
       closeModal.textContent = 'Done';
+      closeModal.disabled = false;
     }
 
     function resetModalState() {
@@ -571,6 +571,12 @@
       modalTitle.innerHTML = "Welcome to <span>Little's Circle</span>";
       modalMessage.textContent = 'Your membership details have been submitted successfully.';
       closeModal.textContent = 'Done';
+      closeModal.disabled = false;
+    }
+
+    function setUploadingState(isUploading) {
+      closeModal.disabled = isUploading;
+      closeModal.textContent = isUploading ? 'Uploading...' : 'Done';
     }
 
     function showRegistrationToast() {

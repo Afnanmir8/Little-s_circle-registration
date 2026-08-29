@@ -368,6 +368,7 @@ input:invalid,textarea:invalid{border-color:#b62f1d;box-shadow:0 0 0 3px rgba(18
   border:0;border-radius:12px;background:var(--brown);color:white;
   padding:12px 24px;font-weight:800
 }
+.modal-btn:disabled{opacity:.65;cursor:wait}
 .modal-link{display:block;margin:12px auto 0;border:0;background:none;color:var(--brown-soft);font-size:12px;font-weight:700;text-decoration:underline;cursor:pointer}
 .registration-toast{
   position:fixed;right:22px;bottom:22px;z-index:120;
