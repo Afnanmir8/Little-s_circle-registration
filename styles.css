@@ -177,7 +177,7 @@ input:invalid,textarea:invalid{border-color:#b62f1d;box-shadow:0 0 0 3px rgba(18
 .leaf-2{right:24px;top:260px;transform:rotate(24deg)}
 .leaf-3{right:106px;bottom:38px;transform:rotate(-10deg)}
 
-.membership-section,.form-section{width:min(1180px,92%);margin:90px auto 0}
+.membership-section,.form-section{width:min(1180px,92%);margin:90px auto 0;scroll-margin-top:100px}
 .section-heading{text-align:center;max-width:720px;margin:0 auto 30px}
 .section-heading h2,.form-side h2{
   font-family:"Cormorant Garamond",serif;
@@ -194,11 +194,14 @@ input:invalid,textarea:invalid{border-color:#b62f1d;box-shadow:0 0 0 3px rgba(18
   gap:13px;
 }
 .plan-card{
+  width:100%;
+  display:flex;
+  flex-direction:column;
   border:1px solid rgba(74,36,20,.13);
   background:rgba(255,250,243,.92);
   border-radius:20px;
-  padding:18px;
-  min-height:255px;
+  padding:20px 18px 18px;
+  min-height:290px;
   text-align:left;
   position:relative;
   overflow:hidden;
@@ -217,16 +220,481 @@ input:invalid,textarea:invalid{border-color:#b62f1d;box-shadow:0 0 0 3px rgba(18
 .plan-top{display:flex;justify-content:space-between;gap:10px;align-items:start}
 .plan-tag{font-size:9px;letter-spacing:.14em;font-weight:800;color:var(--orange-deep)}
 .plan-icon{font-size:22px;color:var(--orange-deep)}
-.plan-name{font-family:"Cormorant Garamond",serif;font-size:29px;font-weight:700;line-height:1.02;margin-top:24px;color:var(--brown)}
-.plan-price{font-size:22px;font-weight:800;margin-top:15px;color:var(--orange-deep)}
+.plan-name{
+  font-family:"Cormorant Garamond",serif;
+  font-size:27px;
+  font-weight:700;
+  line-height:1.06;
+  margin-top:18px;
+  color:var(--brown);
+  min-height:56px;
+}
+.plan-price{font-size:22px;font-weight:800;margin-top:10px;color:var(--orange-deep)}
 .plan-price small{font-size:11px}
-.plan-caption{font-size:12px;color:var(--brown-soft);min-height:42px;margin-top:12px}
+.plan-caption{
+  font-size:12px;
+  line-height:1.45;
+  color:var(--brown-soft);
+  margin-top:10px;
+  margin-bottom:16px;
+  flex-grow:1;
+}
 .select-plan{
-  position:absolute;left:18px;right:18px;bottom:18px;
-  border-top:1px dashed var(--line);padding-top:12px;
-  color:var(--brown);font-size:12px;font-weight:800;
+  display:block;
+  width:100%;
+  margin-top:auto;
+  position:static;
+  border-top:1px dashed var(--line);
+  padding-top:12px;
+  color:var(--brown);
+  font-size:12px;
+  font-weight:800;
+  text-align:left;
 }
 .plan-card.active .select-plan{color:var(--orange-deep)}
+
+/* ==========================================================================
+   Membership Benefits Section
+   ========================================================================== */
+.benefits-section {
+  width: min(1180px, 92%);
+  margin: 90px auto 0;
+  position: relative;
+  scroll-margin-top: 100px;
+}
+
+.benefits-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  max-width: 320px;
+  margin: 0 auto 28px;
+  color: var(--orange);
+  opacity: 0.65;
+}
+.ornament-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line), transparent);
+}
+.ornament-symbol {
+  font-size: 14px;
+  color: var(--orange);
+}
+
+.benefits-header {
+  margin-bottom: 38px;
+}
+.benefits-subtitle {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(22px, 2.5vw, 28px);
+  font-weight: 600;
+  color: var(--orange-deep);
+  margin-top: 6px;
+}
+.benefits-lead {
+  max-width: 640px;
+  margin: 12px auto 0;
+  font-size: 15.5px;
+  color: var(--brown-soft);
+  line-height: 1.55;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  align-items: stretch;
+}
+
+.benefit-card {
+  background: rgba(255, 250, 243, 0.95);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px 18px 22px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(74, 36, 20, 0.05);
+  transition: transform 0.3s cubic-bezier(0.2, 0.1, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.benefit-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--line);
+  transition: height 0.3s ease, background 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 20px 42px rgba(74, 36, 20, 0.12);
+}
+
+/* Tier Specific Accents */
+.benefit-card.starter::before {
+  background: linear-gradient(90deg, #ef6f13, #f7a05a);
+}
+.benefit-card.starter:hover {
+  border-color: rgba(239, 111, 19, 0.45);
+}
+
+.benefit-card.lover::before {
+  background: linear-gradient(90deg, #cf4c18, #f0743b);
+}
+.benefit-card.lover:hover {
+  border-color: rgba(207, 76, 24, 0.45);
+}
+
+.benefit-card.elite {
+  background: linear-gradient(180deg, #fffcf6 0%, #fff6e8 100%);
+}
+.benefit-card.elite::before {
+  background: linear-gradient(90deg, #a7771e, #d8a84e);
+}
+.benefit-card.elite:hover {
+  border-color: rgba(167, 119, 30, 0.55);
+}
+
+.benefit-card.family::before {
+  background: linear-gradient(90deg, #4e5b2a, #788947);
+}
+.benefit-card.family:hover {
+  border-color: rgba(78, 91, 42, 0.5);
+}
+
+.benefit-card.corporate::before {
+  background: linear-gradient(90deg, #4a2414, #733c24);
+}
+.benefit-card.corporate:hover {
+  border-color: rgba(74, 36, 20, 0.55);
+}
+
+/* Card Header Components */
+.benefit-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.benefit-tier-tag {
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  font-weight: 800;
+  padding: 4px 9px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+.benefit-card.starter .benefit-tier-tag {
+  background: rgba(239, 111, 19, 0.1);
+  color: var(--orange-deep);
+}
+.benefit-card.lover .benefit-tier-tag {
+  background: rgba(207, 76, 24, 0.12);
+  color: #c44e18;
+}
+.benefit-card.elite .benefit-tier-tag {
+  background: rgba(167, 119, 30, 0.14);
+  color: #946714;
+}
+.benefit-card.family .benefit-tier-tag {
+  background: rgba(78, 91, 42, 0.12);
+  color: var(--olive);
+}
+.benefit-card.corporate .benefit-tier-tag {
+  background: rgba(74, 36, 20, 0.12);
+  color: var(--brown);
+}
+
+.benefit-tier-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+.benefit-card.starter .benefit-tier-icon { color: var(--orange); }
+.benefit-card.lover .benefit-tier-icon { color: #cf4c18; }
+.benefit-card.elite .benefit-tier-icon { color: #a7771e; }
+.benefit-card.family .benefit-tier-icon { color: var(--olive); }
+.benefit-card.corporate .benefit-tier-icon { color: var(--brown); }
+
+.benefit-tier-name {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-top: 14px;
+  color: var(--brown);
+  min-height: 52px;
+}
+.benefit-tier-price {
+  font-size: 19px;
+  font-weight: 800;
+  margin-top: 6px;
+  color: var(--orange-deep);
+}
+.benefit-card.elite .benefit-tier-price {
+  color: #946714;
+}
+.benefit-card.corporate .benefit-tier-price {
+  color: var(--brown);
+}
+.benefit-tier-price small {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--brown-soft);
+}
+
+.benefit-tier-desc {
+  font-size: 12px;
+  color: var(--brown-soft);
+  line-height: 1.45;
+  margin-top: 8px;
+  min-height: 35px;
+}
+
+.benefit-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 14px 0 16px;
+}
+
+.benefit-list-title {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--brown-soft);
+  margin-bottom: 12px;
+}
+
+.benefit-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8.5px;
+  flex-grow: 1;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+.benefit-subnote {
+  font-size: 11px;
+  color: var(--brown-soft);
+  padding-left: 6px;
+  opacity: 0.88;
+}
+
+.benefit-highlight {
+  background: rgba(239, 111, 19, 0.08);
+  border-radius: 8px;
+  padding: 5px 8px;
+  border-left: 2px solid var(--orange);
+}
+.benefit-card.lover .benefit-highlight {
+  background: rgba(207, 76, 24, 0.08);
+  border-color: #cf4c18;
+}
+.benefit-card.elite .benefit-highlight {
+  background: rgba(167, 119, 30, 0.09);
+  border-color: #a7771e;
+}
+.benefit-card.family .benefit-highlight {
+  background: rgba(78, 91, 42, 0.08);
+  border-color: var(--olive);
+}
+.benefit-card.corporate .benefit-highlight {
+  background: rgba(74, 36, 20, 0.08);
+  border-color: var(--brown);
+}
+
+.benefit-ico-wrap {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 22px;
+  margin-top: 1px;
+  background: rgba(74, 36, 20, 0.05);
+  color: var(--orange-deep);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.benefit-card.elite .benefit-ico-wrap {
+  color: #946714;
+  background: rgba(167, 119, 30, 0.09);
+}
+.benefit-card.family .benefit-ico-wrap {
+  color: var(--olive);
+  background: rgba(78, 91, 42, 0.09);
+}
+.benefit-card.corporate .benefit-ico-wrap {
+  color: var(--brown);
+  background: rgba(74, 36, 20, 0.08);
+}
+
+.benefit-card:hover .benefit-ico-wrap {
+  transform: scale(1.08);
+}
+.benefit-ico-wrap svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* Benefit Card Selection Button & Active State */
+.benefit-select-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--brown);
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(74, 36, 20, 0.04);
+}
+.benefit-select-btn .btn-arrow {
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+.benefit-card:hover .benefit-select-btn {
+  background: var(--brown);
+  color: #fff;
+  border-color: var(--brown);
+}
+.benefit-card:hover .benefit-select-btn .btn-arrow {
+  transform: translateX(3px);
+}
+.benefit-card.active {
+  border: 2px solid var(--orange);
+  box-shadow: 0 16px 36px rgba(239, 111, 19, 0.16);
+}
+.benefit-card.active .benefit-select-btn {
+  background: linear-gradient(135deg, var(--orange), #f79044);
+  color: #fff;
+  border-color: var(--orange);
+  box-shadow: 0 6px 16px rgba(239, 111, 19, 0.24);
+}
+
+/* Crumbs Banner */
+.crumbs-banner {
+  margin-top: 34px;
+  padding: 22px 28px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #fff8ee 0%, #f7ebd9 100%);
+  border: 1px dashed rgba(239, 111, 19, 0.38);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 8px 24px rgba(74, 36, 20, 0.04);
+}
+.crumbs-icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(239, 111, 19, 0.14);
+  color: var(--orange-deep);
+  flex: 0 0 44px;
+}
+.crumbs-content {
+  flex: 1;
+}
+.crumbs-title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--brown);
+  line-height: 1.15;
+}
+.crumbs-text {
+  font-size: 13.5px;
+  color: var(--brown-soft);
+  margin-top: 3px;
+}
+.crumbs-tag {
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  font-weight: 800;
+  color: var(--orange-deep);
+  background: rgba(239, 111, 19, 0.12);
+  padding: 6px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Benefits Bottom CTA */
+.benefits-cta {
+  margin-top: 22px;
+  padding: 24px 30px;
+  border-radius: 20px;
+  background: rgba(255, 250, 243, 0.95);
+  border: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 8px 24px rgba(74, 36, 20, 0.04);
+}
+.benefits-cta-text h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 27px;
+  font-weight: 700;
+  color: var(--brown);
+  line-height: 1.1;
+}
+.benefits-cta-text p {
+  font-size: 13px;
+  color: var(--brown-soft);
+  margin-top: 4px;
+}
+.benefits-cta-btn {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 24px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--orange), #f79044);
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 8px 20px rgba(239, 111, 19, 0.22);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+.benefits-cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(239, 111, 19, 0.32);
+}
+.cta-arrow {
+  font-size: 14px;
+  font-weight: 800;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+.benefits-cta-btn:hover .cta-arrow {
+  transform: translateY(-2px);
+}
 
 .form-section{margin-bottom:90px}
 .form-wrap{
@@ -382,6 +850,7 @@ input:invalid,textarea:invalid{border-color:#b62f1d;box-shadow:0 0 0 3px rgba(18
 
 @media (max-width:1040px){
   .plan-grid{grid-template-columns:repeat(3,1fr)}
+  .benefits-grid{grid-template-columns:repeat(3,1fr)}
   .hero{grid-template-columns:1fr}
   .hero-copy{text-align:center}
   .hero-text{margin-left:auto;margin-right:auto}
@@ -397,8 +866,15 @@ input:invalid,textarea:invalid{border-color:#b62f1d;box-shadow:0 0 0 3px rgba(18
   .hero h1{font-size:52px}
   .hero-art{margin-top:2px}
   .plan-grid{grid-template-columns:1fr}
-  .plan-card{min-height:220px}
-  .membership-section,.form-section{margin-top:64px}
+  .plan-card{min-height:auto;padding:22px 20px 20px}
+  .plan-name{min-height:auto}
+  .membership-section,.benefits-section,.form-section{margin-top:64px}
+  .benefits-grid{grid-template-columns:1fr;gap:16px}
+  .benefit-tier-name{min-height:auto}
+  .crumbs-banner{flex-direction:column;text-align:center;padding:20px 18px;gap:14px}
+  .crumbs-icon-badge{margin:0 auto}
+  .benefits-cta{flex-direction:column;text-align:center;padding:22px 18px;gap:16px}
+  .benefits-cta-btn{width:100%;justify-content:center}
   .form-side,.membership-form{padding:30px 22px}
   .form-grid,.member-grid{grid-template-columns:1fr}
   .field.full{grid-column:auto}
@@ -407,7 +883,7 @@ input:invalid,textarea:invalid{border-color:#b62f1d;box-shadow:0 0 0 3px rgba(18
   .footer-inner img{width:150px}
 }
 @media (max-width:480px){
-  .header-inner,.hero,.membership-section,.form-section,.footer-inner,.footer-bottom{width:min(100% - 28px,1180px)}
+  .header-inner,.hero,.membership-section,.benefits-section,.form-section,.footer-inner,.footer-bottom{width:min(100% - 28px,1180px)}
   .hero h1{font-size:clamp(42px,13vw,52px)}
   .hero-text{font-size:15px}
   .hero-badges{display:grid;grid-template-columns:1fr 1fr}
@@ -416,6 +892,10 @@ input:invalid,textarea:invalid{border-color:#b62f1d;box-shadow:0 0 0 3px rgba(18
   .section-heading h2,.form-side h2{font-size:42px}
   .selected-plan-preview{align-items:flex-start;flex-direction:column;gap:8px}
   .selected-price{text-align:left}
+  .benefit-card{padding:20px 16px;border-radius:18px}
+  .benefit-tier-name{font-size:23px}
+  .benefit-item{font-size:12px}
+  .benefits-cta-text h3{font-size:24px}
   .modal-card{padding:30px 18px;border-radius:18px}
   .modal-card h3{font-size:34px}
   .modal-btn{width:100%;padding-inline:14px}
